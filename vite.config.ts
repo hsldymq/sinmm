@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [vue()],
   
   resolve: {
@@ -12,8 +12,8 @@ export default defineConfig({
     },
   },
 
-  // 如果需要部署到GitHub Pages，取消注释并修改base路径
-  // base: '/sinmm/',
+  // 开发环境用根路径，生产环境用 /sinmm/
+  base: command === 'build' ? '/sinmm/' : '/',
 
   build: {
     // 生成 sourcemap 用于调试
@@ -33,4 +33,4 @@ export default defineConfig({
     port: 5173,
     open: false,
   },
-})
+}))
